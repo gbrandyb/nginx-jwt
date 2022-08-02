@@ -3,11 +3,18 @@ function js_function(r) {
 
     var token = r.args.token;
 
+    //if no token was passed then redirect to no token processing
     try {
-        var decoded = jwt.decode(token, "secret", false, 'HS256');
-        r.internalRedirect('@private');
+        if (!token){
+          r.internalRedirect('@no_token');
+        }
+        else {
+          var decoded = jwt.decode(token, "secret", false, 'HS256');
+          r.internalRedirect('@valid_token');
+        }
     } catch (e) {
-        r.return(200, 'ERROR');
+        //var msg = 'NO VALID AUTHENTICATION FOUND - ' + e.name + ' : ' + e.message;
+        r.return(200, 'NO VALID AUTHENTICATION FOUND');
     }
 }
 

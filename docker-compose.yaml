@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  jwt-njs-nginx:
+    image: nginx
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/module.js:/etc/nginx/module.js
+      - ./html/private/private_file_notoken.txt:/usr/share/nginx/html/private/private_file.txt
+      - ./html/private/private_file_token.txt:/usr/share/nginx/html_token/private/private_file.txt
+      - ./html/static/static_file.txt:/usr/share/nginx/html/static/static_file.txt
+    ports:
+      - 81:81
